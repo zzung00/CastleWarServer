@@ -1,11 +1,11 @@
-package castleWar;
+package castlewar;
+
+import network.PacketWriter;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Player extends Thread{
     private SocketServer socketServer;
@@ -27,6 +27,11 @@ public class Player extends Thread{
         }
     }
 
+    @Override
+    public void run() {
+
+    }
+
     public void sendPacket(byte[] data) {
         try {
             output.write(data);
@@ -36,4 +41,8 @@ public class Player extends Thread{
         }
     }
 
+    public PacketWriter packetWriter(int i) {
+        PacketWriter packet = new PacketWriter();
+        return packet;
+    }
 }
