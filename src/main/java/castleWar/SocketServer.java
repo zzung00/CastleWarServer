@@ -6,13 +6,17 @@ import java.net.Socket;
 
 public class SocketServer implements Runnable{
     private Socket socket;
-    public SocketServer() {
-        ServerSocket server = null;
+    private ServerSocket serverSocket;
+    private int port;
+
+    public SocketServer(int port) {
+        this.port = port;
+
         try {
-            server = new ServerSocket(9090);
+            serverSocket = new ServerSocket(port);
             while (true) {
-                socket = server.accept();
-                System.out.println("서버 대기");
+                Player player = new Player(serverSocket.accept(), this);
+
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -8,20 +8,32 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Player extends Thread{
-    private InputStream input = null;
-    private OutputStream output = null;
-    private Socket socket = null;
+    private SocketServer socketServer;
 
-    public Player() {
+    private Socket socket;
+    private InputStream input;
+    private OutputStream output;
+
+    public Player(Socket socket, SocketServer socketServer) {
+        this.socket = socket;
+        this.socketServer = socketServer;
+
         try {
-            socket = new Socket("localhost", 9090);
             input = socket.getInputStream();
             output = socket.getOutputStream();
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void sendPacket(byte[] data) {
+        try {
+            output.write(data);
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
