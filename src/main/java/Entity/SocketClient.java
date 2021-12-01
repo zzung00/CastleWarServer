@@ -12,10 +12,13 @@ import java.net.Socket;
 import java.util.Arrays;
 
 public class SocketClient extends Thread{
+    private int clientId;
     private SocketServer socketServer;
     private Socket socket;
     private InputStream input;
     private OutputStream output;
+    private long x, y;
+    private boolean horizontally;
 
     public SocketClient(Socket socket, SocketServer socketServer) {
         this.socket = socket;
@@ -28,6 +31,34 @@ public class SocketClient extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isHorizontally() {
+        return horizontally;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setY(long y) {
+        this.y = y;
+    }
+
+    public long getY() {
+        return y;
+    }
+
+    public long getX() {
+        return x;
+    }
+
+    public void setX(long x) {
+        this.x = x;
     }
 
     @Override
@@ -50,7 +81,26 @@ public class SocketClient extends Thread{
                     case 0: {
                         System.out.println("enter player...");
                         socketServer.enqueue(this);
-                    }
+                    }break;
+
+                    case 1: {
+                        int id = reader.readInt();
+                        byte horizon = reader.readByte();
+                        if (horizon == 0) {
+                            horizontally = false;
+                        }else {
+                            horizontally = true;
+                        }
+                        x = reader.readInt();
+                        y = reader.readInt();
+
+                        if (id == 0) {
+                            socketServer.getMap().getPlayerById(1).sendPacket(PacketCreator.movePlayers(this));
+                        }else if (id == 1) {
+                            socketServer.getMap().getPlayerById(0).sendPacket(PacketCreator.movePlayers(this));
+                        }
+
+                    }break;
                 }
             }
 
@@ -59,7 +109,7 @@ public class SocketClient extends Thread{
         }
     }
 
-    public void sendPacket(byte[] data) {
+    public synchronized void sendPacket(byte[] data) {
         System.out.println(Arrays.toString(data));
         try {
             output.write(data);

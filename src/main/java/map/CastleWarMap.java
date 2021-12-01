@@ -5,15 +5,23 @@ import Entity.SocketClient;
 import network.PacketWriter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CastleWarMap {
-    private SocketClient leftPlayer;
-    private SocketClient rightPlayer;
+    private HashMap<Integer, SocketClient> players = new HashMap<>();
     private Castle leftCastle;
     private Castle rightCastle;
 
     public CastleWarMap(SocketClient leftPlayer, SocketClient rightPlayer) {
-        this.leftPlayer = leftPlayer;
-        this.rightPlayer = rightPlayer;
+        players.put(0, leftPlayer);
+        players.put(1, rightPlayer);
+    }
+
+    public HashMap<Integer, SocketClient> getPlayers() {
+        return players;
+    }
+
+    public SocketClient getPlayerById(int id) {
+        return players.get(id);
     }
 }

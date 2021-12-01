@@ -26,10 +26,16 @@ public class SocketServer implements Runnable{
         }else {
             SocketClient leftPlayer = waiting.poll();
             SocketClient rightPlayer = player;
+            leftPlayer.setClientId(0);
+            rightPlayer.setClientId(1);
             leftPlayer.sendPacket(PacketCreator.enterGame(0));
             rightPlayer.sendPacket(PacketCreator.enterGame(1));
             map = new CastleWarMap(leftPlayer, rightPlayer);
         }
+    }
+
+    public CastleWarMap getMap() {
+        return map;
     }
 
     @Override
