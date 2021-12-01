@@ -34,6 +34,9 @@ public class SocketClient extends Thread{
     public void run() {
         try {
             while (!socket.isClosed()) {
+                if (socket.isClosed()) {
+                    break;
+                }
                 byte[] data = new byte[1024];
                 int count = input.read(data);
                 if (count <= 0) {

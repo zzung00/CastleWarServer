@@ -2,10 +2,10 @@ package network;
 
 public class PacketCreator {
 
-    public static byte[] enterGame(byte position) {
+    public static byte[] enterGame(int id) {
         PacketWriter writer = new PacketWriter();
         writer.writeShort(0);
-        writer.writeByte(position);
+        writer.writeInt(id);
         return writer.getPacket();
     }
 }
