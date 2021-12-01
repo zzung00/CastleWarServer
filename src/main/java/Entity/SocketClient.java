@@ -110,7 +110,6 @@ public class SocketClient extends Thread{
     }
 
     public synchronized void sendPacket(byte[] data) {
-        System.out.println(Arrays.toString(data));
         try {
             output.write(data);
             output.flush();
