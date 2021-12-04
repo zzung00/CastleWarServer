@@ -21,6 +21,10 @@ public class CastleWarMap {
         return players;
     }
 
+    public void sendAll() {
+
+    }
+
     public SocketClient getPlayerById(int id) {
         return players.get(id);
     }

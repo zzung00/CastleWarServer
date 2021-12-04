@@ -20,4 +20,11 @@ public class PacketCreator {
         writer.writeInt((int) client.getY());
         return writer.getPacket();
     }
+
+    public static byte[] showAttackEffect(SocketClient client) {
+        PacketWriter writer = new PacketWriter();
+        writer.writeShort(2);
+        writer.writeInt(client.getClientId());
+        return writer.getPacket();
+    }
 }

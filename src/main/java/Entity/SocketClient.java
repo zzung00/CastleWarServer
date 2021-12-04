@@ -84,7 +84,6 @@ public class SocketClient extends Thread{
                     }break;
 
                     case 1: {
-                        int id = reader.readInt();
                         byte horizon = reader.readByte();
                         if (horizon == 0) {
                             horizontally = false;
@@ -94,13 +93,21 @@ public class SocketClient extends Thread{
                         x = reader.readInt();
                         y = reader.readInt();
 
-                        if (id == 0) {
+                        if (clientId == 0) {
                             socketServer.getMap().getPlayerById(1).sendPacket(PacketCreator.movePlayers(this));
-                        }else if (id == 1) {
+                        }else if (clientId == 1) {
                             socketServer.getMap().getPlayerById(0).sendPacket(PacketCreator.movePlayers(this));
                         }
 
                     }break;
+
+                    case 2 : {
+                        if (clientId == 0) {
+                            socketServer.getMap().getPlayerById(1).sendPacket(PacketCreator.showAttackEffect(this));
+                        }else if (clientId == 1) {
+                            socketServer.getMap().getPlayerById(0).sendPacket(PacketCreator.showAttackEffect(this));
+                        }
+                    }
                 }
             }
 
