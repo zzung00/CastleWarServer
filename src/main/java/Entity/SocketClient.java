@@ -109,6 +109,10 @@ public class SocketClient extends Thread{
                         }
 
                     }break;
+
+                    case 3 : {
+                        
+                    }
                 }
             }
 
