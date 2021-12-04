@@ -107,7 +107,8 @@ public class SocketClient extends Thread{
                         }else if (clientId == 1) {
                             socketServer.getMap().getPlayerById(0).sendPacket(PacketCreator.showAttackEffect(this));
                         }
-                    }
+
+                    }break;
                 }
             }
 

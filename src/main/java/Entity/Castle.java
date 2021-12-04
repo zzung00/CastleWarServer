@@ -1,5 +1,7 @@
 package Entity;
 
+import java.awt.geom.Rectangle2D;
+
 public class Castle {
     private double x, y;
     private int hp;
